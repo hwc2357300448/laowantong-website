@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>医养服务平台</title>
+    <title>老顽童陪护服务</title>
     <style>
         /* =========================================
            1. CSS 变量 (配色方案)
@@ -11,12 +11,13 @@
            并替换下面的 #2ca6a4 颜色代码。
            ========================================= */
         :root {
-            --primary-color: #2ca6a4; /* 在此处修改为 Logo 的颜色 */
+            --primary-color: #FF8C00; /* Logo橙色 */
             --secondary-color: #f8f9fa;
             --text-color: #333;
             --light-text: #666;
             --white: #ffffff;
             --footer-bg: #222;
+            --accent-color: #4CAF50; /* Logo绿色 */
         }
 
         /* 全局重置 */
@@ -393,6 +394,206 @@
             font-size: 12px;
             color: #777;
         }
+
+        /* =========================================
+           移动端响应式设计
+           ========================================= */
+
+        /* 汉堡菜单按钮 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 3px 0;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* 平板端 (max-width: 1024px) */
+        @media (max-width: 1024px) {
+            .container {
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .foundation-content {
+                flex-direction: column;
+            }
+        }
+
+        /* 手机端 (max-width: 768px) */
+        @media (max-width: 768px) {
+            /* 头部导航 */
+            .top-bar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+                position: absolute;
+                right: 20px;
+                top: 15px;
+            }
+
+            .top-bar {
+                position: relative;
+            }
+
+            nav {
+                display: none;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+            }
+
+            .nav-link {
+                padding: 12px 15px;
+                text-align: left;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background: rgba(0,0,0,0.1);
+            }
+
+            .nav-item:hover .dropdown-menu {
+                display: none;
+            }
+
+            .nav-item.open .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-item {
+                padding-left: 30px;
+                background: transparent;
+                color: rgba(255,255,255,0.8);
+                border-bottom-color: rgba(255,255,255,0.1);
+            }
+
+            .dropdown-item:hover {
+                background: rgba(255,255,255,0.1);
+                color: var(--white);
+            }
+
+            /* 轮播图 */
+            .hero-section {
+                height: 300px;
+            }
+
+            .hero-slide {
+                font-size: 1.5rem;
+                padding: 0 20px;
+                text-align: center;
+            }
+
+            /* 服务项目 */
+            .section {
+                padding: 40px 0;
+            }
+
+            .section-title h2 {
+                font-size: 24px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            /* 新闻资讯 */
+            .news-container {
+                flex-direction: column;
+            }
+
+            .news-left-image {
+                height: 200px;
+            }
+
+            .news-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .news-date {
+                margin-right: 0;
+            }
+
+            /* 救助基金会 */
+            .foundation-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            /* 底部 */
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .footer-qr {
+                margin: 0 auto;
+            }
+        }
+
+        /* 小屏手机 (max-width: 480px) */
+        @media (max-width: 480px) {
+            .logo-area span {
+                font-size: 18px;
+            }
+
+            .logo-area img {
+                height: 45px;
+            }
+
+            .hero-section {
+                height: 220px;
+            }
+
+            .hero-slide {
+                font-size: 1.2rem;
+            }
+
+            .section-title h2 {
+                font-size: 20px;
+            }
+
+            .service-card {
+                padding: 15px;
+            }
+
+            .service-icon {
+                font-size: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -402,13 +603,19 @@
         <div class="container top-bar">
             <div class="logo-area">
                 <!-- 这里引用本地 logo.jpg -->
-                <img src="logo.jpg" alt="Logo">
-                <span>医养服务中心</span>
+                <img src="./logo.jpg" alt="老顽童">
+                <span>老顽童陪护服务</span>
             </div>
+            <!-- 汉堡菜单按钮 -->
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
 
         <!-- 栏目导航 (含二级菜单) -->
-        <nav>
+        <nav id="mainNav">
             <div class="container">
                 <ul class="nav-menu">
                     <li class="nav-item">
@@ -581,9 +788,29 @@
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2023 医养服务平台 版权所有 | ICP备xxxxxxxx号</p>
+            <p>&copy; 2024 老顽童陪护服务 版权所有 | ICP备xxxxxxxx号</p>
         </div>
     </footer>
+
+    <!-- 移动端菜单交互脚本 -->
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        }
+
+        // 移动端下拉菜单
+        document.querySelectorAll('.nav-item').forEach(item => {
+            if (item.querySelector('.dropdown-menu')) {
+                item.querySelector('.nav-link').addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        item.classList.toggle('open');
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
