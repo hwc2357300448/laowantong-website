@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医养服务平台</title>
+    <style>
+        /* =========================================
+           1. CSS 变量 (配色方案)
+           请使用取色器工具获取 logo.jpg 的主色调，
+           并替换下面的 #2ca6a4 颜色代码。
+           ========================================= */
+        :root {
+            --primary-color: #2ca6a4; /* 在此处修改为 Logo 的颜色 */
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #666;
+            --white: #ffffff;
+            --footer-bg: #222;
+        }
+
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* 通用容器 */
+        .container {
+            width: 1200px;
+            max-width: 95%;
+            margin: 0 auto;
+        }
+
+        /* =========================================
+           第一层：头部与栏目 (Header & Nav)
+           ========================================= */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo-area img {
+            height: 60px; /* 根据logo实际比例调整 */
+            vertical-align: middle;
+        }
+
+        .logo-area span {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        /* 导航栏 */
+        nav {
+            background-color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .nav-item {
+            position: relative;
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 15px 0;
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        /* 二级菜单 (Dropdown) */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 1001;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px;
+            color: var(--text-color);
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* =========================================
+           第二层：轮播图 (Carousel / Hero)
+           ========================================= */
+        .hero-section {
+            width: 100%;
+            height: 500px; /* 大写宽度适当大 */
+            background-color: #ddd;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            width: 100%;
+            height: 100%;
+            background: url('https://via.placeholder.com/1920x600/2ca6a4/ffffff?text=医养服务+Banner轮播图') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* =========================================
+           第三层：服务项目 (Services)
+           ========================================= */
+        .section {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .section-title .line {
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .service-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .service-card p {
+            color: var(--light-text);
+            font-size: 14px;
+        }
+
+        /* =========================================
+           第四层：新闻资讯 (News - Left Img, Right Text)
+           ========================================= */
+        .bg-gray {
+            background-color: #f9f9f9;
+        }
+
+        .news-container {
+            display: flex;
+            gap: 30px;
+        }
+
+        .news-left-image {
+            flex: 1;
+            height: 350px;
+            background: url('https://via.placeholder.com/600x400?text=新闻焦点图') no-repeat center center;
+            background-size: cover;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .news-left-image span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .news-right-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .news-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-date {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 15px;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .news-title {
+            flex: 1;
+            font-size: 16px;
+            color: var(--text-color);
+        }
+        
+        .news-title:hover {
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* =========================================
+           第五层：救助基金会 (Foundation)
+           ========================================= */
+        .foundation-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .foundation-text {
+            flex: 2;
+        }
+        
+        .foundation-text p {
+            margin-bottom: 20px;
+            color: var(--light-text);
+            font-size: 16px;
+        }
+
+        .foundation-btn {
+            display: inline-block;
+            padding: 10px 30px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 25px;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .foundation-btn:hover {
+            opacity: 0.9;
+        }
+
+        .foundation-img {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .foundation-img img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* =========================================
+           底部：联系方式与二维码 (Footer)
+           ========================================= */
+        footer {
+            background-color: var(--footer-bg);
+            color: #ccc;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #444;
+        }
+
+        .footer-info h4 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .contact-list li {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .footer-qr {
+            text-align: center;
+        }
+
+        .qr-box {
+            width: 120px;
+            height: 120px;
+            background-color: var(--white);
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .qr-box img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 头部 Logo -->
+    <header>
+        <div class="container top-bar">
+            <div class="logo-area">
+                <!-- 这里引用本地 logo.jpg -->
+                <img src="logo.jpg" alt="Logo">
+                <span>医养服务中心</span>
+            </div>
+        </div>
+
+        <!-- 栏目导航 (含二级菜单) -->
+        <nav>
+            <div class="container">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">公司介绍</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">企业文化</a>
+                            <a href="#" class="dropdown-item">发展历程</a>
+                            <a href="#" class="dropdown-item">荣誉资质</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">医养服务</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">居家养老</a>
+                            <a href="#" class="dropdown-item">康复护理</a>
+                            <a href="#" class="dropdown-item">老年餐桌</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">服务团队</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">专家团队</a>
+                            <a href="#" class="dropdown-item">护理明星</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">新闻动态</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">救助基金会</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 2. 第二层：轮播图 (Hero) -->
+    <section class="hero-section">
+        <div class="hero-slide">
+            <!-- 实际项目中这里可以使用 Swiper 等插件 -->
+            <div>
+                <h1>专业医养 · 呵护生命</h1>
+                <p style="font-size: 1.2rem; margin-top: 10px;">Provide Professional Medical And Elderly Care Services</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 第三层：服务项目 (Services) -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>服务项目</h2>
+                <div class="line"></div>
+                <p style="margin-top:10px; color:#888;">全方位的医疗与养老服务体系</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- 项目 1 -->
+                <div class="service-card">
+                    <div class="service-icon">🏥</div>
+                    <h3>医疗护理</h3>
+                    <p>提供专业的医疗护理服务，24小时即时响应。</p>
+                </div>
+                <!-- 项目 2 -->
+                <div class="service-card">
+                    <div class="service-icon">🥗</div>
+                    <h3>营养膳食</h3>
+                    <p>针对老年人体制特点，科学定制营养食谱。</p>
+                </div>
+                <!-- 项目 3 -->
+                <div class="service-card">
+                    <div class="service-icon">🧘</div>
+                    <h3>康复训练</h3>
+                    <p>协助术后恢复及日常机能维持的康复训练。</p>
+                </div>
+                <!-- 项目 4 -->
+                <div class="service-card">
+                    <div class="service-icon">🤝</div>
+                    <h3>心理慰藉</h3>
+                    <p>关注长者心理健康，提供陪伴与心理疏导。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 第四层：新闻资讯 (Left Image, Right News) -->
+    <section class="section bg-gray">
+        <div class="container">
+            <div class="section-title">
+                <h2>新闻动态</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="news-container">
+                <!-- 左边图片 -->
+                <div class="news-left-image">
+                    <span>最新活动：社区义诊温暖人心</span>
+                </div>
+
+                <!-- 右边新闻标题列表 -->
+                <div class="news-right-list">
+                    <div class="news-item">
+                        <div class="news-date">2023-10-24</div>
+                        <div class="news-title">我院举办“九九重阳”大型公益汇演活动</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">2023-10-20</div>
+                        <div class="news-title">关于开展冬季老年人呼吸道疾病预防讲座的通知</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">2023-10-15</div>
+                        <div class="news-title">医养结合新模式：让养老更有“医”靠</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">2023-10-10</div>
+                        <div class="news-title">欢迎市领导莅临我中心视察指导工作</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 第五层：救助基金会 (Foundation) -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>救助基金会</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="foundation-content">
+                <div class="foundation-text">
+                    <h3>爱心汇聚 · 传递温暖</h3>
+                    <br>
+                    <p>本基金会致力于为困难老人、失能长者提供必要的经济援助和医疗支持。我们要让每一位老人都能享受到有尊严的晚年生活。您的每一份爱心，都将化作温暖的阳光。</p>
+                    <p>主要救助范围：贫困高龄老人医疗救助、失独老人生活补贴、阿尔茨海默症关爱项目等。</p>
+                    <a href="#" class="foundation-btn">了解更多 &rarr;</a>
+                </div>
+                <div class="foundation-img">
+                    <img src="https://via.placeholder.com/400x250/e0f7fa/006064?text=基金会公益行动" alt="基金会">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部：联系地址、联系方式、二维码 -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-info">
+                <h4>联系我们</h4>
+                <ul class="contact-list">
+                    <li>📍 地址：xx省xx市xx区xx路88号医养中心</li>
+                    <li>📞 电话：010-12345678 / 400-888-8888</li>
+                    <li>📧 邮箱：contact@yiyang.com</li>
+                    <li>🕘 时间：周一至周日 8:30 - 17:30</li>
+                </ul>
+            </div>
+
+            <div class="footer-info">
+                <h4>关注我们</h4>
+                <div class="footer-qr">
+                    <div class="qr-box">
+                        <img src="https://via.placeholder.com/120x120?text=二维码" alt="二维码">
+                    </div>
+                    <p>扫码关注公众号</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 医养服务平台 版权所有 | ICP备xxxxxxxx号</p>
+        </div>
+    </footer>
+
+</body>
+</html>

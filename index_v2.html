@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医养服务平台 - 设计方案二</title>
+    <style>
+        /* =========================================
+           VERSION 2: 现代温馨风格
+           核心差异：单行头部导航、圆角卡片、暖色背景
+           ========================================= */
+        :root {
+            /* 依然请替换为 Logo 的取色代码 */
+            --primary-color: #4A90E2; /* 方案二暂用一种更明亮的蓝色 */
+            --accent-color: #FF8C00;  /* 辅助暖色（橙色），用于强调 */
+            --bg-color: #f7f9fc;
+            --text-main: #2c3e50;
+            --text-sub: #7f8c8d;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; margin: 0; padding: 0; }
+
+        .container {
+            width: 1200px;
+            max-width: 96%;
+            margin: 0 auto;
+        }
+
+        /* =========================================
+           1. 头部 (Header) - 差异化：左右布局，不再分上下两层
+           ========================================= */
+        header {
+            background-color: var(--white);
+            height: 80px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 12px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        /* 导航 */
+        .main-nav {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0 20px;
+            line-height: 80px; /* 垂直居中 */
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .nav-link:hover, .nav-item.active .nav-link {
+            color: var(--primary-color);
+            background-color: #f0f4f8;
+        }
+
+        /* 下拉菜单 - 差异化：更圆润的阴影 */
+        .dropdown {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            min-width: 160px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 0 0 8px 8px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            top: 80px;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 12px 20px;
+            font-size: 14px;
+            color: var(--text-sub);
+            border-bottom: 1px solid #f5f5f5;
+            text-align: center;
+        }
+
+        .dropdown a:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* =========================================
+           2. 轮播图 (Banner) - 差异化：全屏宽度，更大气
+           ========================================= */
+        .banner {
+            width: 100%;
+            height: 550px;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.8), rgba(67, 206, 162, 0.8)), url('https://via.placeholder.com/1920x800?text=Banner+Image') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .banner-content h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .banner-content p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        /* =========================================
+           3. 服务项目 (Services) - 差异化：悬浮卡片
+           ========================================= */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            color: var(--text-main);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .service-list {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .service-box {
+            flex: 1;
+            background: var(--white);
+            padding: 40px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid transparent;
+        }
+
+        .service-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-top-color: var(--primary-color);
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: #eef6ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: var(--primary-color);
+        }
+
+        .service-box h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .service-box p {
+            color: var(--text-sub);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           4. 新闻资讯 (News) - 差异化：卡片式 + 日期高亮
+           左图右文结构优化
+           ========================================= */
+        .bg-white { background-color: var(--white); }
+
+        .news-wrapper {
+            display: flex;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .news-img {
+            flex: 1;
+            min-height: 400px;
+            background: url('https://via.placeholder.com/600x450?text=News+Focus') center/cover;
+            position: relative;
+        }
+        
+        .news-tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .news-list-box {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .news-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .news-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .date-box {
+            background: #f0f4f8;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            margin-right: 20px;
+            min-width: 70px;
+        }
+
+        .date-box .day {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            line-height: 1;
+        }
+
+        .date-box .year {
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+
+        .news-info h4 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            transition: color 0.2s;
+        }
+
+        .news-info h4:hover {
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .news-info p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-sub);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* =========================================
+           5. 救助基金会 (Foundation) - 差异化：深色背景强调
+           ========================================= */
+        .foundation-section {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .foundation-flex {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .foundation-img-col {
+            flex: 1;
+        }
+
+        .foundation-img-col img {
+            width: 100%;
+            border-radius: 12px;
+            border: 5px solid rgba(255,255,255,0.2);
+        }
+
+        .foundation-text-col {
+            flex: 1.2;
+        }
+
+        .foundation-text-col h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .foundation-text-col p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 12px 35px;
+            border: 2px solid var(--white);
+            color: var(--white);
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* =========================================
+           6. 底部 (Footer) - 差异化：深灰配色 + 居中布局
+           ========================================= */
+        footer {
+            background-color: #1a252f;
+            color: #95a5a6;
+            padding: 70px 0 30px;
+            text-align: center; /* 居中风格 */
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: left;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h5 {
+            color: var(--white);
+            font-size: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .qr-placeholder {
+            width: 140px;
+            height: 140px;
+            background: var(--white);
+            padding: 10px;
+            margin-top: 10px;
+        }
+        
+        .qr-placeholder img { width: 100%; height: 100%; }
+
+        .copyright-bar {
+            border-top: 1px solid #2c3e50;
+            padding-top: 30px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Header (Single Row) -->
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                <img src="logo.jpg" alt="Logo">
+                <h1>医养服务中心 <span style="font-size:12px; color:#999; font-weight:normal;">/ Care Center</span></h1>
+            </div>
+
+            <nav>
+                <ul class="main-nav">
+                    <li class="nav-item active"><a href="#" class="nav-link">首页</a></li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">公司介绍 ▾</a>
+                        <div class="dropdown">
+                            <a href="#">企业简介</a>
+                            <a href="#">组织架构</a>
+                            <a href="#">企业文化</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">医养服务 ▾</a>
+                        <div class="dropdown">
+                            <a href="#">日间照料</a>
+                            <a href="#">长期护理</a>
+                            <a href="#">居家上门</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">服务团队 ▾</a>
+                        <div class="dropdown">
+                            <a href="#">专家顾问</a>
+                            <a href="#">持证护工</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link">新闻动态</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" style="color:var(--primary-color);">救助基金会</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 2. Banner (Full Width) -->
+    <section class="banner">
+        <div class="banner-content">
+            <h2>守护夕阳红，温暖老人心</h2>
+            <p>专业的医疗护理 / 贴心的生活照料 / 舒适的居住环境</p>
+        </div>
+    </section>
+
+    <!-- 3. Services (Hover Cards) -->
+    <section class="section-padding" style="background-color: #fff;">
+        <div class="container">
+            <div class="section-header">
+                <h2>特色服务体系</h2>
+                <p style="margin-top:10px; color:#7f8c8d;">全周期、高品质的医养结合服务</p>
+            </div>
+
+            <div class="service-list">
+                <div class="service-box">
+                    <div class="icon-circle">🏠</div>
+                    <h3>居家养老</h3>
+                    <p>为社区老人提供上门生活照料、身体护理及家政服务，让爱在家延续。</p>
+                </div>
+                <div class="service-box">
+                    <div class="icon-circle">🩺</div>
+                    <h3>医疗康复</h3>
+                    <p>配备专业医师与康复器材，针对术后及慢性病长者提供定制化方案。</p>
+                </div>
+                <div class="service-box">
+                    <div class="icon-circle">🍲</div>
+                    <h3>膳食管理</h3>
+                    <p>营养师科学配餐，三餐两点，注重美味与健康的完美平衡。</p>
+                </div>
+                <div class="service-box">
+                    <div class="icon-circle">🎨</div>
+                    <h3>文娱活动</h3>
+                    <p>丰富多彩的老年大学课程，书法、绘画、太极，让晚年生活不再孤单。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. News (Card Layout) -->
+    <section class="section-padding" style="background-color: #f7f9fc;">
+        <div class="container">
+            <div class="section-header">
+                <h2>新闻资讯</h2>
+            </div>
+
+            <div class="news-wrapper">
+                <!-- 左侧大图 -->
+                <div class="news-img">
+                    <span class="news-tag">最新置顶</span>
+                </div>
+                <!-- 右侧列表 -->
+                <div class="news-list-box">
+                    <div class="news-row">
+                        <div class="date-box">
+                            <span class="day">28</span>
+                            <span class="year">2023.12</span>
+                        </div>
+                        <div class="news-info">
+                            <h4>社区养老服务中心正式挂牌成立</h4>
+                            <p>为了更好地服务周边社区长者，我中心历时半年筹备...</p>
+                        </div>
+                    </div>
+                    <div class="news-row">
+                        <div class="date-box">
+                            <span class="day">15</span>
+                            <span class="year">2023.12</span>
+                        </div>
+                        <div class="news-info">
+                            <h4>冬至包饺子，温暖老人心</h4>
+                            <p>冬至佳节，志愿者团队来到中心，与老人们一起...</p>
+                        </div>
+                    </div>
+                    <div class="news-row">
+                        <div class="date-box">
+                            <span class="day">09</span>
+                            <span class="year">2023.12</span>
+                        </div>
+                        <div class="news-info">
+                            <h4>专家义诊活动圆满结束</h4>
+                            <p>邀请市三甲医院专家团队为入住长者进行免费健康体检...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Foundation (Colored BG) -->
+    <section class="section-padding foundation-section">
+        <div class="container foundation-flex">
+            <div class="foundation-text-col">
+                <h2>救助基金会</h2>
+                <p>我们设立专项慈善基金，旨在帮助那些经济困难、孤寡失独的老人获得应有的医疗照护和生活保障。爱心不分大小，您的每一次关注，都能点亮一盏希望的灯。</p>
+                <a href="#" class="btn-outline">我要捐赠 / 申请救助</a>
+            </div>
+            <div class="foundation-img-col">
+                <img src="https://via.placeholder.com/500x300/ffffff/4A90E2?text=Foundation+Charity" alt="慈善基金">
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5>联系方式</h5>
+                    <ul class="footer-links">
+                        <li>📍 地址：xx市xx区医养健康产业园A座</li>
+                        <li>📞 电话：400-123-4567</li>
+                        <li>✉️ 邮箱：info@healthcare.com</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>快速导航</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">关于我们</a></li>
+                        <li><a href="#">服务项目</a></li>
+                        <li><a href="#">入住指南</a></li>
+                        <li><a href="#">加入我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>官方公众号</h5>
+                    <div class="qr-placeholder">
+                        <img src="https://via.placeholder.com/140x140?text=QR+Code" alt="二维码">
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-bar">
+                Copyright &copy; 2023 医养服务平台 All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
