@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目报价单 - 老顽童陪护服务网站</title>
+    <style>
+        :root {
+            --primary: #FF8C00;
+            --primary-light: #fff7ed;
+            --text: #333;
+            --text-secondary: #666;
+            --border: #e8e8e8;
+            --bg: #f5f5f5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "Segoe UI", sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .quotation {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        /* 报价单头部 */
+        .quote-header {
+            background: linear-gradient(135deg, var(--primary), #e67e00);
+            color: #fff;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .quote-header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .quote-header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        /* 基本信息 */
+        .quote-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 30px 40px;
+            background: #fafafa;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-group h4 {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .info-group p {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* 报价内容 */
+        .quote-body {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .num {
+            background: var(--primary);
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* 表格 */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+        }
+
+        .table th,
+        .table td {
+            padding: 14px 16px;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        .table th {
+            background: #f8f8f8;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 13px;
+        }
+
+        .table td {
+            font-size: 14px;
+        }
+
+        .table .item-name {
+            font-weight: 500;
+        }
+
+        .table .item-desc {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .table .price {
+            text-align: right;
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        .table .subtotal {
+            background: var(--primary-light);
+        }
+
+        .table .subtotal td {
+            font-weight: 600;
+        }
+
+        /* 费用类型标签 */
+        .fee-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+
+        .fee-once {
+            background: #e6f7ff;
+            color: #1890ff;
+        }
+
+        .fee-year {
+            background: #f6ffed;
+            color: #52c41a;
+        }
+
+        /* 总计 */
+        .total-section {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            padding: 30px 40px;
+            margin-top: 40px;
+            border-radius: 8px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .total-row:last-child {
+            border-bottom: none;
+            padding-top: 20px;
+        }
+
+        .total-row .label {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .total-row .value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .total-row.grand .label {
+            font-size: 18px;
+            opacity: 1;
+        }
+
+        .total-row.grand .value {
+            font-size: 32px;
+            color: var(--primary);
+        }
+
+        /* 备注 */
+        .notes {
+            padding: 30px 40px;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .notes h4 {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .notes ul {
+            list-style: none;
+        }
+
+        .notes li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .notes li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 签章区 */
+        .signature {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .sign-box h4 {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+        }
+
+        .sign-line {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .sign-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* 页脚 */
+        .quote-footer {
+            text-align: center;
+            padding: 20px;
+            background: #f0f0f0;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* 打印样式 */
+        @media print {
+            body { background: #fff; }
+            .container { padding: 0; max-width: 100%; }
+            .quotation { box-shadow: none; }
+            .no-print { display: none; }
+        }
+
+        /* 打印按钮 */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255,140,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .print-btn:hover {
+            background: #e67e00;
+        }
+
+        @media (max-width: 768px) {
+            .quote-info { grid-template-columns: 1fr; }
+            .signature { grid-template-columns: 1fr; }
+            .quote-header, .quote-body, .notes { padding: 20px; }
+            .total-section { padding: 20px; margin-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quotation">
+            <!-- 头部 -->
+            <div class="quote-header">
+                <h1>项目开发报价单</h1>
+                <p>老顽童陪护服务官方网站建设项目</p>
+            </div>
+
+            <!-- 基本信息 -->
+            <div class="quote-info">
+                <div class="info-group">
+                    <h4>报价单编号</h4>
+                    <p>QT-2024-1230-001</p>
+                </div>
+                <div class="info-group">
+                    <h4>报价日期</h4>
+                    <p>2024年12月30日</p>
+                </div>
+                <div class="info-group">
+                    <h4>项目名称</h4>
+                    <p>老顽童陪护服务官方网站</p>
+                </div>
+                <div class="info-group">
+                    <h4>报价有效期</h4>
+                    <p>30天</p>
+                </div>
+            </div>
+
+            <!-- 报价内容 -->
+            <div class="quote-body">
+                <!-- 一、网站开发费用 -->
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="num">1</span>
+                        网站开发费用
+                        <span class="fee-type fee-once">一次性</span>
+                    </h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="40%">项目内容</th>
+                                <th width="35%">说明</th>
+                                <th width="25%">费用（元）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="item-name">前端页面开发</div>
+                                    <div class="item-desc">首页、公司介绍、医养服务、服务团队、新闻动态、救助基金会等页面</div>
+                                </td>
+                                <td>共6个主要页面，含下拉菜单子页面</td>
+                                <td class="price">3,000</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">响应式适配</div>
+                                    <div class="item-desc">适配PC端、平板、手机等多种设备</div>
+                                </td>
+                                <td>三端自适应布局</td>
+                                <td class="price">800</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">后台管理系统</div>
+                                    <div class="item-desc">轮播图、服务项目、新闻资讯、基金会、团队、网站设置等管理</div>
+                                </td>
+                                <td>8个功能模块，含CRUD操作</td>
+                                <td class="price">5,000</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">后端API开发</div>
+                                    <div class="item-desc">RESTful API接口、数据库设计、文件上传</div>
+                                </td>
+                                <td>Node.js/Java后端服务</td>
+                                <td class="price">4,000</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">UI设计</div>
+                                    <div class="item-desc">整体视觉设计、配色方案、图标设计</div>
+                                </td>
+                                <td>符合养老服务行业风格</td>
+                                <td class="price">1,500</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="2"><strong>开发费用小计</strong></td>
+                                <td class="price">14,300</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 二、基础设施费用 -->
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="num">2</span>
+                        基础设施费用
+                        <span class="fee-type fee-year">按年付</span>
+                    </h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="40%">项目内容</th>
+                                <th width="35%">配置说明</th>
+                                <th width="25%">费用（元/年）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="item-name">云服务器</div>
+                                    <div class="item-desc">阿里云/腾讯云 ECS</div>
+                                </td>
+                                <td>2核4G内存、50G系统盘、3M带宽</td>
+                                <td class="price">1,200</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">云数据库</div>
+                                    <div class="item-desc">MySQL 基础版</div>
+                                </td>
+                                <td>1核2G、50G存储</td>
+                                <td class="price">600</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">域名注册</div>
+                                    <div class="item-desc">.com 国际域名</div>
+                                </td>
+                                <td>首年注册费用</td>
+                                <td class="price">69</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">SSL证书</div>
+                                    <div class="item-desc">HTTPS安全证书</div>
+                                </td>
+                                <td>免费DV证书（Let's Encrypt）</td>
+                                <td class="price">0</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">对象存储 OSS</div>
+                                    <div class="item-desc">图片、文件存储</div>
+                                </td>
+                                <td>50G存储空间 + 流量</td>
+                                <td class="price">200</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">CDN加速</div>
+                                    <div class="item-desc">全国节点加速</div>
+                                </td>
+                                <td>100G流量包/年</td>
+                                <td class="price">100</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">ICP备案</div>
+                                    <div class="item-desc">网站域名备案服务</div>
+                                </td>
+                                <td>协助完成备案流程</td>
+                                <td class="price">0</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="2"><strong>基础设施费用小计（首年）</strong></td>
+                                <td class="price">2,169</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 三、部署上线费用 -->
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="num">3</span>
+                        部署上线费用
+                        <span class="fee-type fee-once">一次性</span>
+                    </h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="40%">项目内容</th>
+                                <th width="35%">说明</th>
+                                <th width="25%">费用（元）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="item-name">服务器环境配置</div>
+                                    <div class="item-desc">Nginx、Node.js、MySQL等环境搭建</div>
+                                </td>
+                                <td>Linux服务器环境部署</td>
+                                <td class="price">500</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">系统部署上线</div>
+                                    <div class="item-desc">代码部署、数据库初始化、域名解析</div>
+                                </td>
+                                <td>前后端完整部署</td>
+                                <td class="price">500</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">安全配置</div>
+                                    <div class="item-desc">防火墙、安全组、SSL配置</div>
+                                </td>
+                                <td>基础安全防护</td>
+                                <td class="price">300</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">使用培训</div>
+                                    <div class="item-desc">后台操作培训、文档交付</div>
+                                </td>
+                                <td>1次线上培训 + 操作手册</td>
+                                <td class="price">200</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="2"><strong>部署费用小计</strong></td>
+                                <td class="price">1,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 四、运维服务费用 -->
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="num">4</span>
+                        运维服务费用
+                        <span class="fee-type fee-year">按年付</span>
+                    </h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="40%">项目内容</th>
+                                <th width="35%">说明</th>
+                                <th width="25%">费用（元/年）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="item-name">日常运维</div>
+                                    <div class="item-desc">服务器监控、性能优化、故障处理</div>
+                                </td>
+                                <td>7×12小时响应</td>
+                                <td class="price">1,500</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">数据备份</div>
+                                    <div class="item-desc">数据库、文件自动备份</div>
+                                </td>
+                                <td>每日备份，保留30天</td>
+                                <td class="price">500</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">安全维护</div>
+                                    <div class="item-desc">漏洞修复、安全更新</div>
+                                </td>
+                                <td>定期安全检查</td>
+                                <td class="price">500</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">小功能修改</div>
+                                    <div class="item-desc">文字、图片等内容修改</div>
+                                </td>
+                                <td>每月2次，每次不超过2小时</td>
+                                <td class="price">含在运维中</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="2"><strong>运维费用小计（年）</strong></td>
+                                <td class="price">2,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 费用汇总 -->
+                <div class="total-section">
+                    <div class="total-row">
+                        <span class="label">一、网站开发费用（一次性）</span>
+                        <span class="value">¥14,300</span>
+                    </div>
+                    <div class="total-row">
+                        <span class="label">二、基础设施费用（首年）</span>
+                        <span class="value">¥2,169</span>
+                    </div>
+                    <div class="total-row">
+                        <span class="label">三、部署上线费用（一次性）</span>
+                        <span class="value">¥1,500</span>
+                    </div>
+                    <div class="total-row">
+                        <span class="label">四、运维服务费用（首年）</span>
+                        <span class="value">¥2,500</span>
+                    </div>
+                    <div class="total-row grand">
+                        <span class="label">首年总费用</span>
+                        <span class="value">¥20,469</span>
+                    </div>
+                </div>
+
+                <!-- 后续年费说明 -->
+                <div style="margin-top: 20px; padding: 20px; background: #f0f7ff; border-radius: 8px; border-left: 4px solid #1890ff;">
+                    <h4 style="color: #1890ff; margin-bottom: 10px; font-size: 15px;">💡 后续年费说明</h4>
+                    <p style="color: #666; font-size: 14px; margin-bottom: 8px;">
+                        <strong>第二年起年费：</strong>基础设施 ¥2,169 + 运维服务 ¥2,500 = <strong style="color: var(--primary);">¥4,669/年</strong>
+                    </p>
+                    <p style="color: #999; font-size: 13px;">
+                        注：域名续费约 ¥69/年，云服务器续费价格可能有所浮动
+                    </p>
+                </div>
+            </div>
+
+            <!-- 备注 -->
+            <div class="notes">
+                <h4>📋 项目说明及备注</h4>
+                <ul>
+                    <li>开发周期：预计 15-20 个工作日完成开发并上线</li>
+                    <li>付款方式：签订合同后支付 50%，验收通过后支付剩余 50%</li>
+                    <li>质保期限：项目上线后提供 3 个月免费质保服务</li>
+                    <li>源码交付：项目完成后交付全部源代码及数据库</li>
+                    <li>服务器配置可根据实际访问量进行升级，费用另计</li>
+                    <li>如需定制开发其他功能，按实际工作量另行报价</li>
+                    <li>以上报价不含发票税点，如需开票加收 6% 税费</li>
+                </ul>
+            </div>
+
+            <!-- 签章区 -->
+            <div class="signature">
+                <div class="sign-box">
+                    <h4>甲方（客户）</h4>
+                    <div class="sign-line"></div>
+                    <div class="sign-label">签字/盖章</div>
+                    <div style="margin-top: 20px;">
+                        <div class="sign-line"></div>
+                        <div class="sign-label">日期</div>
+                    </div>
+                </div>
+                <div class="sign-box">
+                    <h4>乙方（服务商）</h4>
+                    <div class="sign-line"></div>
+                    <div class="sign-label">签字/盖章</div>
+                    <div style="margin-top: 20px;">
+                        <div class="sign-line"></div>
+                        <div class="sign-label">日期</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 页脚 -->
+            <div class="quote-footer">
+                本报价单由系统自动生成，最终解释权归服务商所有
+            </div>
+        </div>
+    </div>
+
+    <!-- 打印按钮 -->
+    <button class="print-btn no-print" onclick="window.print()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9V2h12v7"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        打印报价单
+    </button>
+</body>
+</html>
