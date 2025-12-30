@@ -114,6 +114,15 @@
             font-size: 14px;
         }
 
+        .section-title.gray {
+            color: #999;
+            border-bottom-color: #ddd;
+        }
+
+        .section-title.gray .num {
+            background: #999;
+        }
+
         /* 表格 */
         .table {
             width: 100%;
@@ -156,12 +165,28 @@
             white-space: nowrap;
         }
 
+        .table .price.gray {
+            color: #999;
+        }
+
         .table .subtotal {
             background: var(--primary-light);
         }
 
         .table .subtotal td {
             font-weight: 600;
+        }
+
+        .table-gray {
+            opacity: 0.8;
+        }
+
+        .table-gray th {
+            background: #f0f0f0;
+        }
+
+        .table-gray .subtotal {
+            background: #f5f5f5;
         }
 
         /* 费用类型标签 */
@@ -181,6 +206,11 @@
         .fee-year {
             background: #f6ffed;
             color: #52c41a;
+        }
+
+        .fee-client {
+            background: #f5f5f5;
+            color: #999;
         }
 
         /* 总计 */
@@ -223,6 +253,11 @@
         .total-row.grand .value {
             font-size: 32px;
             color: var(--primary);
+        }
+
+        .total-row .value.small {
+            font-size: 14px;
+            opacity: 0.6;
         }
 
         /* 备注 */
@@ -291,6 +326,39 @@
             background: #f0f0f0;
             font-size: 12px;
             color: var(--text-secondary);
+        }
+
+        /* 提示框 */
+        .tip-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .tip-box.blue {
+            background: #f0f7ff;
+            border-color: #1890ff;
+        }
+
+        .tip-box.orange {
+            background: #fff7ed;
+            border-color: var(--primary);
+        }
+
+        .tip-box h4 {
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .tip-box p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .tip-box p:last-child {
+            margin-bottom: 0;
         }
 
         /* 打印样式 */
@@ -362,309 +430,184 @@
 
             <!-- 报价内容 -->
             <div class="quote-body">
-                <!-- 一、网站开发费用 -->
+                <!-- 一、技术服务费用（我方提供） -->
                 <div class="section">
                     <h3 class="section-title">
                         <span class="num">1</span>
-                        网站开发费用
-                        <span class="fee-type fee-once">一次性</span>
+                        技术服务费用（我方提供）
                     </h3>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th width="40%">项目内容</th>
-                                <th width="35%">说明</th>
-                                <th width="25%">费用（元）</th>
+                                <th width="40%">服务内容</th>
+                                <th width="40%">说明</th>
+                                <th width="20%">费用（元）</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    <div class="item-name">前端页面开发</div>
-                                    <div class="item-desc">首页、公司介绍、医养服务、服务团队、新闻动态、救助基金会等页面</div>
+                                    <div class="item-name">网站前端开发</div>
+                                    <div class="item-desc">首页、公司介绍、医养服务、服务团队、新闻动态、救助基金会</div>
                                 </td>
-                                <td>共6个主要页面，含下拉菜单子页面</td>
-                                <td class="price">3,000</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">响应式适配</div>
-                                    <div class="item-desc">适配PC端、平板、手机等多种设备</div>
-                                </td>
-                                <td>三端自适应布局</td>
-                                <td class="price">800</td>
+                                <td>6个主要页面 + 响应式适配（PC/平板/手机）</td>
+                                <td class="price">1,200</td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="item-name">后台管理系统</div>
-                                    <div class="item-desc">轮播图、服务项目、新闻资讯、基金会、团队、网站设置等管理</div>
+                                    <div class="item-desc">轮播图、服务项目、新闻、基金会、团队、网站设置管理</div>
                                 </td>
-                                <td>8个功能模块，含CRUD操作</td>
-                                <td class="price">5,000</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">后端API开发</div>
-                                    <div class="item-desc">RESTful API接口、数据库设计、文件上传</div>
-                                </td>
-                                <td>Node.js/Java后端服务</td>
-                                <td class="price">4,000</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">UI设计</div>
-                                    <div class="item-desc">整体视觉设计、配色方案、图标设计</div>
-                                </td>
-                                <td>符合养老服务行业风格</td>
+                                <td>8个功能模块，支持增删改查</td>
                                 <td class="price">1,500</td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">后端接口开发</div>
+                                    <div class="item-desc">API接口、数据库设计、图片上传</div>
+                                </td>
+                                <td>RESTful API + MySQL数据库</td>
+                                <td class="price">800</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">部署上线</div>
+                                    <div class="item-desc">服务器环境配置、代码部署、域名解析</div>
+                                </td>
+                                <td>完整部署到客户服务器</td>
+                                <td class="price">300</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">ICP备案协助</div>
+                                    <div class="item-desc">准备备案材料、提交审核、跟进进度</div>
+                                </td>
+                                <td>全程协助完成备案</td>
+                                <td class="price">含</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">首年运维服务</div>
+                                    <div class="item-desc">日常监控、故障处理、数据备份、小修改</div>
+                                </td>
+                                <td>1年技术支持</td>
+                                <td class="price">含</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="item-name">使用培训</div>
+                                    <div class="item-desc">后台操作培训、交付操作文档</div>
+                                </td>
+                                <td>1次线上培训</td>
+                                <td class="price">含</td>
+                            </tr>
                             <tr class="subtotal">
-                                <td colspan="2"><strong>开发费用小计</strong></td>
-                                <td class="price">14,300</td>
+                                <td colspan="2"><strong>技术服务费合计</strong></td>
+                                <td class="price">¥3,800</td>
                             </tr>
                         </tbody>
                     </table>
+
+                    <div class="tip-box orange">
+                        <h4 style="color: var(--primary);">✅ 服务承诺</h4>
+                        <p>• 开发周期：<strong>10-15个工作日</strong> 完成开发并上线</p>
+                        <p>• 质保期限：上线后 <strong>3个月</strong> 免费Bug修复</p>
+                        <p>• 源码交付：项目完成后交付全部源代码</p>
+                        <p>• 首年运维：包含日常监控、故障处理、每月2次小修改</p>
+                    </div>
                 </div>
 
-                <!-- 二、基础设施费用 -->
+                <!-- 二、基础设施费用（客户自行承担） -->
                 <div class="section">
-                    <h3 class="section-title">
+                    <h3 class="section-title gray">
                         <span class="num">2</span>
-                        基础设施费用
-                        <span class="fee-type fee-year">按年付</span>
+                        基础设施费用（客户自行承担）
+                        <span class="fee-type fee-client">参考报价</span>
                     </h3>
-                    <table class="table">
+                    <table class="table table-gray">
                         <thead>
                             <tr>
                                 <th width="40%">项目内容</th>
-                                <th width="35%">配置说明</th>
-                                <th width="25%">费用（元/年）</th>
+                                <th width="40%">推荐配置</th>
+                                <th width="20%">参考价（元/年）</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
                                     <div class="item-name">云服务器</div>
-                                    <div class="item-desc">阿里云/腾讯云 ECS</div>
+                                    <div class="item-desc">阿里云/腾讯云 轻量应用服务器</div>
                                 </td>
-                                <td>2核4G内存、50G系统盘、3M带宽</td>
-                                <td class="price">1,200</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">云数据库</div>
-                                    <div class="item-desc">MySQL 基础版</div>
-                                </td>
-                                <td>1核2G、50G存储</td>
-                                <td class="price">600</td>
+                                <td>2核2G、50G SSD、4M带宽</td>
+                                <td class="price gray">≈ 99-200</td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="item-name">域名注册</div>
-                                    <div class="item-desc">.com 国际域名</div>
+                                    <div class="item-desc">.com / .cn 域名</div>
                                 </td>
-                                <td>首年注册费用</td>
-                                <td class="price">69</td>
+                                <td>国际/国内域名</td>
+                                <td class="price gray">≈ 50-70</td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="item-name">SSL证书</div>
                                     <div class="item-desc">HTTPS安全证书</div>
                                 </td>
-                                <td>免费DV证书（Let's Encrypt）</td>
-                                <td class="price">0</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">对象存储 OSS</div>
-                                    <div class="item-desc">图片、文件存储</div>
-                                </td>
-                                <td>50G存储空间 + 流量</td>
-                                <td class="price">200</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">CDN加速</div>
-                                    <div class="item-desc">全国节点加速</div>
-                                </td>
-                                <td>100G流量包/年</td>
-                                <td class="price">100</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">ICP备案</div>
-                                    <div class="item-desc">网站域名备案服务</div>
-                                </td>
-                                <td>协助完成备案流程</td>
-                                <td class="price">0</td>
+                                <td>免费证书（Let's Encrypt）</td>
+                                <td class="price gray">免费</td>
                             </tr>
                             <tr class="subtotal">
-                                <td colspan="2"><strong>基础设施费用小计（首年）</strong></td>
-                                <td class="price">2,169</td>
+                                <td colspan="2"><strong>基础设施参考费用（年）</strong></td>
+                                <td class="price gray">≈ ¥150-300</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
 
-                <!-- 三、部署上线费用 -->
-                <div class="section">
-                    <h3 class="section-title">
-                        <span class="num">3</span>
-                        部署上线费用
-                        <span class="fee-type fee-once">一次性</span>
-                    </h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="40%">项目内容</th>
-                                <th width="35%">说明</th>
-                                <th width="25%">费用（元）</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="item-name">服务器环境配置</div>
-                                    <div class="item-desc">Nginx、Node.js、MySQL等环境搭建</div>
-                                </td>
-                                <td>Linux服务器环境部署</td>
-                                <td class="price">500</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">系统部署上线</div>
-                                    <div class="item-desc">代码部署、数据库初始化、域名解析</div>
-                                </td>
-                                <td>前后端完整部署</td>
-                                <td class="price">500</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">安全配置</div>
-                                    <div class="item-desc">防火墙、安全组、SSL配置</div>
-                                </td>
-                                <td>基础安全防护</td>
-                                <td class="price">300</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">使用培训</div>
-                                    <div class="item-desc">后台操作培训、文档交付</div>
-                                </td>
-                                <td>1次线上培训 + 操作手册</td>
-                                <td class="price">200</td>
-                            </tr>
-                            <tr class="subtotal">
-                                <td colspan="2"><strong>部署费用小计</strong></td>
-                                <td class="price">1,500</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- 四、运维服务费用 -->
-                <div class="section">
-                    <h3 class="section-title">
-                        <span class="num">4</span>
-                        运维服务费用
-                        <span class="fee-type fee-year">按年付</span>
-                    </h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="40%">项目内容</th>
-                                <th width="35%">说明</th>
-                                <th width="25%">费用（元/年）</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="item-name">日常运维</div>
-                                    <div class="item-desc">服务器监控、性能优化、故障处理</div>
-                                </td>
-                                <td>7×12小时响应</td>
-                                <td class="price">1,500</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">数据备份</div>
-                                    <div class="item-desc">数据库、文件自动备份</div>
-                                </td>
-                                <td>每日备份，保留30天</td>
-                                <td class="price">500</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">安全维护</div>
-                                    <div class="item-desc">漏洞修复、安全更新</div>
-                                </td>
-                                <td>定期安全检查</td>
-                                <td class="price">500</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-name">小功能修改</div>
-                                    <div class="item-desc">文字、图片等内容修改</div>
-                                </td>
-                                <td>每月2次，每次不超过2小时</td>
-                                <td class="price">含在运维中</td>
-                            </tr>
-                            <tr class="subtotal">
-                                <td colspan="2"><strong>运维费用小计（年）</strong></td>
-                                <td class="price">2,500</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="tip-box blue">
+                        <h4 style="color: #1890ff;">💡 说明</h4>
+                        <p>• 以上为客户自行购买的云资源，我方可协助开通和配置</p>
+                        <p>• 轻量服务器新用户首年优惠力度大，约 <strong>99元/年</strong> 起</p>
+                        <p>• 用户量不大的情况下，以上配置完全够用</p>
+                    </div>
                 </div>
 
                 <!-- 费用汇总 -->
                 <div class="total-section">
                     <div class="total-row">
-                        <span class="label">一、网站开发费用（一次性）</span>
-                        <span class="value">¥14,300</span>
+                        <span class="label">技术服务费（开发+部署+首年运维）</span>
+                        <span class="value">¥3,800</span>
                     </div>
                     <div class="total-row">
-                        <span class="label">二、基础设施费用（首年）</span>
-                        <span class="value">¥2,169</span>
-                    </div>
-                    <div class="total-row">
-                        <span class="label">三、部署上线费用（一次性）</span>
-                        <span class="value">¥1,500</span>
-                    </div>
-                    <div class="total-row">
-                        <span class="label">四、运维服务费用（首年）</span>
-                        <span class="value">¥2,500</span>
+                        <span class="label">基础设施费用（客户自理）</span>
+                        <span class="value small">约 ¥150-300/年</span>
                     </div>
                     <div class="total-row grand">
-                        <span class="label">首年总费用</span>
-                        <span class="value">¥20,469</span>
+                        <span class="label">本次应付金额</span>
+                        <span class="value">¥3,800</span>
                     </div>
                 </div>
 
-                <!-- 后续年费说明 -->
-                <div style="margin-top: 20px; padding: 20px; background: #f0f7ff; border-radius: 8px; border-left: 4px solid #1890ff;">
-                    <h4 style="color: #1890ff; margin-bottom: 10px; font-size: 15px;">💡 后续年费说明</h4>
-                    <p style="color: #666; font-size: 14px; margin-bottom: 8px;">
-                        <strong>第二年起年费：</strong>基础设施 ¥2,169 + 运维服务 ¥2,500 = <strong style="color: var(--primary);">¥4,669/年</strong>
-                    </p>
-                    <p style="color: #999; font-size: 13px;">
-                        注：域名续费约 ¥69/年，云服务器续费价格可能有所浮动
-                    </p>
+                <!-- 后续费用说明 -->
+                <div class="tip-box blue" style="margin-top: 20px;">
+                    <h4 style="color: #1890ff;">📅 后续年度费用</h4>
+                    <p><strong>第二年起运维费：</strong>¥800/年（含日常监控、故障处理、每月2次小修改）</p>
+                    <p><strong>基础设施续费：</strong>客户自行续费云服务器、域名等</p>
+                    <p style="color: #999; font-size: 13px;">如不需要运维服务，可自行维护，无强制续费</p>
                 </div>
             </div>
 
             <!-- 备注 -->
             <div class="notes">
-                <h4>📋 项目说明及备注</h4>
+                <h4>📋 合作说明</h4>
                 <ul>
-                    <li>开发周期：预计 15-20 个工作日完成开发并上线</li>
-                    <li>付款方式：签订合同后支付 50%，验收通过后支付剩余 50%</li>
-                    <li>质保期限：项目上线后提供 3 个月免费质保服务</li>
-                    <li>源码交付：项目完成后交付全部源代码及数据库</li>
-                    <li>服务器配置可根据实际访问量进行升级，费用另计</li>
-                    <li>如需定制开发其他功能，按实际工作量另行报价</li>
-                    <li>以上报价不含发票税点，如需开票加收 6% 税费</li>
+                    <li><strong>付款方式：</strong>签订合同后支付 50%，验收通过后支付剩余 50%</li>
+                    <li><strong>开发周期：</strong>10-15个工作日完成开发并上线</li>
+                    <li><strong>交付内容：</strong>网站源代码、数据库、操作文档</li>
+                    <li><strong>质保服务：</strong>上线后3个月内免费修复Bug</li>
+                    <li><strong>首年运维：</strong>包含在服务费中，无额外收费</li>
+                    <li><strong>功能变更：</strong>如需新增功能，按实际工作量另行报价</li>
+                    <li><strong>发票税点：</strong>如需开具发票，加收6%税费</li>
                 </ul>
             </div>
 
