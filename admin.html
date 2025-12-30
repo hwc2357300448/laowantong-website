@@ -65,13 +65,7 @@
             font-weight: 600;
         }
 
-        .menu { list-style: none; padding: 16px 0; }
-
-        .menu-group {
-            padding: 8px 24px;
-            font-size: 12px;
-            color: rgba(255,255,255,0.45);
-        }
+        .menu { list-style: none; padding: 8px 0; }
 
         .menu-item > a {
             display: flex;
@@ -94,9 +88,26 @@
         }
 
         .menu-item .icon {
-            width: 14px;
-            height: 14px;
+            width: 18px;
+            height: 18px;
             margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .menu-item svg.icon {
+            stroke: currentColor;
+        }
+
+        .menu-item.active .icon {
+            opacity: 1;
+        }
+
+        .menu-group {
+            padding: 20px 24px 8px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* 主内容 */
@@ -696,51 +707,51 @@
             <ul class="menu">
                 <li class="menu-item active" data-page="dashboard">
                     <a onclick="showPage('dashboard')">
-                        <span class="icon">📊</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                         控制台
                     </a>
                 </li>
                 <li class="menu-group">内容管理</li>
                 <li class="menu-item" data-page="banner">
                     <a onclick="showPage('banner')">
-                        <span class="icon">🖼️</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                         轮播图管理
                     </a>
                 </li>
                 <li class="menu-item" data-page="service">
                     <a onclick="showPage('service')">
-                        <span class="icon">🏥</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                         服务项目
                     </a>
                 </li>
                 <li class="menu-item" data-page="news">
                     <a onclick="showPage('news')">
-                        <span class="icon">📰</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
                         新闻资讯
                     </a>
                 </li>
                 <li class="menu-item" data-page="foundation">
                     <a onclick="showPage('foundation')">
-                        <span class="icon">💚</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                         救助基金会
                     </a>
                 </li>
                 <li class="menu-item" data-page="team">
                     <a onclick="showPage('team')">
-                        <span class="icon">👥</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                         服务团队
                     </a>
                 </li>
                 <li class="menu-group">系统</li>
                 <li class="menu-item" data-page="settings">
                     <a onclick="showPage('settings')">
-                        <span class="icon">⚙️</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         网站设置
                     </a>
                 </li>
                 <li class="menu-item" data-page="user">
                     <a onclick="showPage('user')">
-                        <span class="icon">👤</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                         用户管理
                     </a>
                 </li>
